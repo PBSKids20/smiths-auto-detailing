@@ -7,9 +7,47 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Smith's Auto Detailing</h1>
-        <p>Your one-stop shop for all your auto detailing needs!</p>
+    <header class="carousel-header">
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel">
+                    <div class="carousel-slide fade">
+                        <img src="https://via.placeholder.com/1200x600?text=Exterior+Detailing" alt="Exterior Detailing">
+                    </div>
+                    <div class="carousel-slide fade">
+                        <img src="https://via.placeholder.com/1200x600?text=Paint+Correction" alt="Paint Correction">
+                    </div>
+                    <div class="carousel-slide fade">
+                        <img src="https://via.placeholder.com/1200x600?text=Interior+Detailing" alt="Interior Detailing">
+                    </div>
+                    <div class="carousel-slide fade">
+                        <img src="https://via.placeholder.com/1200x600?text=Ceramic+Coating" alt="Ceramic Coating">
+                    </div>
+                    <div class="carousel-slide fade">
+                        <img src="https://via.placeholder.com/1200x600?text=Headlight+Restoration" alt="Headlight Restoration">
+                    </div>
+                    <div class="carousel-slide fade">
+                        <img src="https://via.placeholder.com/1200x600?text=Engine+Cleaning" alt="Engine Cleaning">
+                    </div>
+                </div>
+                <!-- Navigation Arrows -->
+                <a class="carousel-control prev" onclick="changeSlide(-1)">&#10094;</a>
+                <a class="carousel-control next" onclick="changeSlide(1)">&#10095;</a>
+            </div>
+            <!-- Carousel Dots -->
+            <div class="carousel-dots">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+                <span class="dot" onclick="currentSlide(4)"></span>
+                <span class="dot" onclick="currentSlide(5)"></span>
+                <span class="dot" onclick="currentSlide(6)"></span>
+            </div>
+        </div>
+        <div class="header-text">
+            <h1>Welcome to Smith's Auto Detailing</h1>
+            <p>Your one-stop shop for all your auto detailing needs!</p>
+        </div>
     </header>
     <section id="services">
         <h2>Services Offered</h2>
@@ -25,5 +63,52 @@
     <footer>
         <p>Contact us at: info@smithsautodetailing.com</p>
     </footer>
+
+    <script>
+        let slideIndex = 1;
+        let slideTimer;
+
+        function changeSlide(n) {
+            clearTimeout(slideTimer);
+            showSlide(slideIndex += n);
+            autoSlide();
+        }
+
+        function currentSlide(n) {
+            clearTimeout(slideTimer);
+            showSlide(slideIndex = n);
+            autoSlide();
+        }
+
+        function showSlide(n) {
+            let slides = document.getElementsByClassName("carousel-slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        function autoSlide() {
+            slideTimer = setTimeout(() => {
+                slideIndex++;
+                showSlide(slideIndex);
+                autoSlide();
+            }, 5000); // Change slide every 5 seconds
+        }
+
+        // Initialize carousel
+        showSlide(slideIndex);
+        autoSlide();
+    </script>
 </body>
 </html>
